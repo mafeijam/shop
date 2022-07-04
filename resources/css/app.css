@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: source-han-sans-hong-kong, system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  #app {
+    @apply flex min-h-screen flex-col;
+  }
+
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .links {
+    @apply font-medium text-stone-500 transition hover:text-stone-400;
+  }
+  .icons {
+    @apply text-stone-500 transition hover:text-stone-400;
+  }
+  .link-highlight {
+    transition: 0.3s;
+    box-shadow: 0 -2px #bae6fd inset;
+  }
+  .link-highlight:hover {
+    box-shadow: 0 -2rem #bae6fd inset;
+  }
+
+  .page-enter-active,
+  .menu-enter-active {
+    @apply transition duration-200;
+  }
+  .product-enter-active {
+    @apply transition duration-200 ease-in;
+  }
+
+  .page-leave-active,
+  .menu-leave-active {
+    @apply transition duration-100;
+  }
+  .product-leave-active {
+    @apply transition duration-150 ease-out;
+  }
+
+  .page-enter-to,
+  .page-leave-from,
+  .menu-enter-to,
+  .menu-leave-from {
+    @apply translate-x-0 opacity-100;
+  }
+
+  .page-enter-from {
+    @apply -translate-x-3 opacity-0;
+  }
+  .page-leave-to {
+    @apply translate-x-3 opacity-0;
+  }
+
+  .product-enter-from,
+  .product-leave-to {
+    @apply translate-y-2 opacity-0;
+  }
+  .product-enter-to,
+  .product-leave-from {
+    @apply translate-y-0 opacity-100;
+  }
+
+  .menu-enter-from,
+  .menu-leave-to {
+    @apply -translate-x-1/2 opacity-0;
+  }
+}
