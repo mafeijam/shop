@@ -6,6 +6,23 @@
   html {
     font-family: source-han-sans-hong-kong, system-ui, sans-serif;
   }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar:horizontal {
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track,
+  ::-webkit-scrollbar-corner {
+    @apply rounded bg-stone-50;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply rounded bg-stone-200;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-stone-300;
+  }
 }
 
 @layer components {
@@ -74,4 +91,15 @@
   .menu-leave-to {
     @apply -translate-x-1/2 opacity-0;
   }
+
+  .swiper-btn-next,
+  .swiper-btn-prev {
+    @apply absolute top-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-white/50 text-2xl text-stone-500 transition hover:bg-white/70;
+  }
+}
+
+.swiper-vars {
+  --swiper-theme-color: #78716c;
+  --swiper-pagination-bullet-inactive-color: #d6d3d1;
+  --swiper-pagination-bullet-inactive-opacity: 1;
 }

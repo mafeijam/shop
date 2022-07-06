@@ -8,7 +8,7 @@ module.exports = {
     './resources/**/*.js'
   ],
   safelist: [{
-    pattern: /(.+)-(enter|leave)-(.+)/
+    pattern: /(.+)-(enter|leave)-(.+)|swiper-btn-(.+)/
   }],
   theme: {
     extend: {

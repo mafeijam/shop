@@ -16,12 +16,12 @@ import { usePage } from '@inertiajs/inertia-vue3'
 
 const page = usePage()
 
-const name = computed(() => {
-  if (page.props.value.last_url === page.url.value) {
-    return 'none'
-  }
+const unchaged = computed(
+  () => page.props.value.last_url === page.url.value || page.props.value.change_lang
+)
 
-  if (page.props.value.change_lang) {
+const name = computed(() => {
+  if (unchaged.value) {
     return 'none'
   }
 
@@ -29,10 +29,18 @@ const name = computed(() => {
 })
 
 const before = () => {
+  if (unchaged.value) {
+    return
+  }
+
   document.body.classList.add('overflow-hidden')
 }
 
 const after = () => {
+  if (unchaged.value) {
+    return
+  }
+
   document.body.classList.remove('overflow-hidden')
 }
 </script>
