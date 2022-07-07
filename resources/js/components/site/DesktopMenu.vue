@@ -2,13 +2,13 @@
   <div class="container mx-auto hidden justify-between space-x-3 px-6 py-3 xl:flex">
     <SiteLogo class="links" />
 
-    <div class="flex items-center space-x-6">
+    <div class="flex items-center space-x-10">
       <InertiaLink :href="$getLang('about')" class="links text-lg">關於</InertiaLink>
       <InertiaLink :href="$getLang('eat')" class="links text-lg">買野食</InertiaLink>
 
       <div class="h-3 border-l border-stone-200"></div>
 
-      <div class="flex space-x-4">
+      <div class="flex space-x-5">
         <InertiaLink :href="$page.props.lang_url">
           <i-ri-translate-2 class="icons text-lg" />
         </InertiaLink>

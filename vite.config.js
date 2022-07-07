@@ -14,6 +14,9 @@ export default defineConfig({
       port: 6060,
     },
   },
+  ssr: {
+    noExternal: ['swiper'],
+  },
   plugins: [
     laravel({
       input: 'resources/js/app.js',

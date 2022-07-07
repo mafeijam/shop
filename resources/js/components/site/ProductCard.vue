@@ -25,29 +25,11 @@
       </div>
     </div>
 
-    <template v-if="isDesktop">
-      <Transition name="product">
-        <div
-          v-show="show"
-          class="absolute bottom-0 right-0 flex w-full select-none items-center justify-end space-x-6 bg-gradient-to-b from-white/20 via-white/40 to-stone-200/60 p-4"
-        >
-          <button
-            class="text-2xl text-stone-300 transition hover:text-rose-500 active:text-rose-600"
-          >
-            <i-ri-heart-add-fill />
-          </button>
-
-          <button
-            class="rounded-md bg-stone-200 px-4 py-2 text-sm text-stone-500 transition hover:bg-rose-500 hover:text-stone-100 hover:ring-4 hover:ring-rose-300 focus:outline-none focus:ring-4 focus:ring-stone-300 hover:focus:ring-rose-300 active:bg-rose-600 active:ring-rose-400"
-          >
-            加入購物車
-          </button>
-        </div>
-      </Transition>
-    </template>
-
-    <template v-else>
-      <div class="flex justify-end gap-6 lg:w-full lg:pt-6">
+    <Transition name="product" v-if="isDesktop">
+      <div
+        v-show="show"
+        class="absolute bottom-0 right-0 flex w-full select-none items-center justify-end space-x-6 bg-gradient-to-b from-white/20 via-white/40 to-stone-200/60 p-4"
+      >
         <button class="text-2xl text-stone-300 transition hover:text-rose-500 active:text-rose-600">
           <i-ri-heart-add-fill />
         </button>
@@ -58,7 +40,19 @@
           加入購物車
         </button>
       </div>
-    </template>
+    </Transition>
+
+    <div class="flex justify-end gap-6 lg:w-full lg:pt-6" v-else>
+      <button class="text-2xl text-stone-300 transition hover:text-rose-500 active:text-rose-600">
+        <i-ri-heart-add-fill />
+      </button>
+
+      <button
+        class="rounded-md bg-stone-200 px-4 py-2 text-sm text-stone-500 transition hover:bg-rose-500 hover:text-stone-100 hover:ring-4 hover:ring-rose-300 focus:outline-none focus:ring-4 focus:ring-stone-300 hover:focus:ring-rose-300 active:bg-rose-600 active:ring-rose-400"
+      >
+        加入購物車
+      </button>
+    </div>
   </div>
 </template>
 

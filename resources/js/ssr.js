@@ -7,11 +7,12 @@ import { StoryblokVue, apiPlugin } from '@storyblok/vue'
 import envPlugin from '@/plugins/env'
 import autoload from '@/plugins/autoload'
 import inertiaSetting from '@/plugins/inertia-setting'
+import vueSwiper from '@/plugins/vue-swiper'
 import layout from '@/layouts/default.vue'
 
 import '../css/app.css'
 
-const pages = import.meta.globEager('./Pages/**/*.vue')
+const pages = import.meta.globEager('./pages/**/*.vue')
 
 createServer(page =>
   createInertiaApp({
@@ -26,6 +27,7 @@ createServer(page =>
       return createSSRApp({ render: () => h(app, props) })
         .use(plugin)
         .use(envPlugin)
+        .use(vueSwiper)
         .use(inertiaSetting, {
           ssr: true,
         })

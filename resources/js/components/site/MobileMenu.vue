@@ -43,7 +43,7 @@
 
     <SiteLogo class="links w-full md:col-span-6 md:w-auto" />
 
-    <div class="hidden space-x-4 justify-self-end md:col-span-3 md:flex">
+    <div class="hidden space-x-5 justify-self-end md:col-span-3 md:flex">
       <InertiaLink :href="$page.props.lang_url">
         <i-ri-translate-2 class="icons text-xl" />
       </InertiaLink>
