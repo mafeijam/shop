@@ -28,9 +28,7 @@ createServer(page =>
         .use(plugin)
         .use(envPlugin)
         .use(vueSwiper)
-        .use(inertiaSetting, {
-          ssr: true,
-        })
+        .use(inertiaSetting)
         .use(autoload, {
           list: [
             {

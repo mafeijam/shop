@@ -10,7 +10,7 @@ class SetLang
 {
     protected $allowLangs = [
         'zh-hk',
-        'en-hk'
+        'en-hk',
     ];
 
     public function handle(Request $request, Closure $next)
@@ -21,7 +21,7 @@ class SetLang
             return $this->handleWithSlug($request, $next, $route);
         }
 
-        if (!$route->hasParameter('slug')) {
+        if (! $route->hasParameter('slug')) {
             return $this->handleWithoutSlug($request, $next, $route);
         }
 
@@ -33,7 +33,7 @@ class SetLang
         $lang = $route->parameter('lang');
         $slug = $route->parameter('slug');
 
-        if (!in_array($lang, $this->allowLangs)) {
+        if (! in_array($lang, $this->allowLangs)) {
             $lang = 'zh-hk';
         }
 
@@ -42,13 +42,13 @@ class SetLang
 
             $routeParam = collect([
                 'lang' => $lang === 'zh-hk' ? null : $lang,
-                'slug' => $slug
+                'slug' => $slug,
             ])->only($parameterNames);
 
             return redirect()->route($slug, $routeParam->toArray());
         }
 
-        if (!in_array($lang, $this->allowLangs)) {
+        if (! in_array($lang, $this->allowLangs)) {
             $route->setParameter('lang', 'zh-hk');
             $route->setParameter('slug', "$lang/$slug");
         }

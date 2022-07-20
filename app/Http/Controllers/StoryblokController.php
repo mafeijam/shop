@@ -16,6 +16,7 @@ class StoryblokController extends Controller
 
         try {
             $story = $storyblok->getStoryBySlug("$lang/$slug")->getBody();
+
             return inertia('Storyblok', ['story' => $story['story']]);
         } catch (ApiException $e) {
             return inertia('NotFound');
@@ -30,6 +31,7 @@ class StoryblokController extends Controller
     public function flush(Storyblok $storyblok)
     {
         $storyblok->flushCache();
+
         return 'ok';
     }
 }

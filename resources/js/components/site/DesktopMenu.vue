@@ -1,10 +1,29 @@
 <template>
-  <div class="container mx-auto hidden justify-between space-x-3 px-6 py-3 xl:flex">
+  <div class="container mx-auto hidden h-16 justify-between space-x-3 px-6 xl:flex">
     <SiteLogo class="links" />
 
     <div class="flex items-center space-x-10">
-      <InertiaLink :href="$getLang('about')" class="links text-lg">關於</InertiaLink>
-      <InertiaLink :href="$getLang('eat')" class="links text-lg">買野食</InertiaLink>
+      <InertiaLink
+        :href="$getUrlWithLang('/')"
+        class="links grid h-full content-center text-lg"
+        :class="{ 'link-active': $isLinkActive('/') }"
+      >
+        首頁
+      </InertiaLink>
+      <InertiaLink
+        :href="$getUrlWithLang('about')"
+        class="links grid h-full content-center text-lg"
+        :class="{ 'link-active': $isLinkActive('about') }"
+      >
+        關於
+      </InertiaLink>
+      <InertiaLink
+        :href="$getUrlWithLang('eat')"
+        class="links grid h-full content-center text-lg"
+        :class="{ 'link-active': $isLinkActive('eat') }"
+      >
+        買野食
+      </InertiaLink>
 
       <div class="h-3 border-l border-stone-200"></div>
 

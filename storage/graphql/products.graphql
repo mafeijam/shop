@@ -1,0 +1,24 @@
+query getProducts($limitProduct: Int = 100, $limitVariant: Int = 10) {
+  products(first: $limitProduct) {
+    edges {
+      node {
+        id
+        title
+        description
+        descriptionHtml
+        tags
+        featuredImage {
+          url
+          width
+        }
+        variants(first: $limitVariant) {
+          edges {
+            node {
+              id
+            }
+          }
+        }
+      }
+    }
+  }
+}

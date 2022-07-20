@@ -11,6 +11,7 @@ class HandleInertiaRequests extends Middleware
      * The root template that's loaded on the first page visit.
      *
      * @see https://inertiajs.com/server-side-setup#root-template
+     *
      * @var string
      */
     protected $rootView = 'app';
@@ -19,6 +20,7 @@ class HandleInertiaRequests extends Middleware
      * Determines the current asset version.
      *
      * @see https://inertiajs.com/asset-versioning
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
@@ -31,6 +33,7 @@ class HandleInertiaRequests extends Middleware
      * Defines the props that are shared by default.
      *
      * @see https://inertiajs.com/shared-data
+     *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
@@ -46,7 +49,7 @@ class HandleInertiaRequests extends Middleware
             'change_lang' => $this->changedLang($url, $last),
             'current_lang' => $this->getCurrentLang($request),
             'domain' => $request->getSchemeAndHttpHost(),
-            'lazy' => $request->inertia() ? null : now()
+            'lazy' => $request->inertia() ? null : now(),
         ]);
     }
 
@@ -54,8 +57,8 @@ class HandleInertiaRequests extends Middleware
     {
         $changeLang = false;
 
-        if ((str_starts_with($url, '/en-hk') && !str_starts_with($last, '/en-hk')) ||
-            (!str_starts_with($url, '/en-hk') && str_starts_with($last, '/en-hk'))
+        if ((str_starts_with($url, '/en-hk') && ! str_starts_with($last, '/en-hk')) ||
+            (! str_starts_with($url, '/en-hk') && str_starts_with($last, '/en-hk'))
         ) {
             $changeLang = true;
         }
@@ -98,7 +101,7 @@ class HandleInertiaRequests extends Middleware
             $lang = $route->parameter('lang');
             $slug = $route->parameter('slug');
 
-            if (!$route->hasParameter('slug')) {
+            if (! $route->hasParameter('slug')) {
                 $slug = $lang;
                 $lang = 'en-hk';
             } else {
@@ -107,11 +110,10 @@ class HandleInertiaRequests extends Middleware
 
             return route('storyblok', [
                 'lang' => $lang,
-                'slug' => $slug
+                'slug' => $slug,
             ]);
         }
 
         return null;
-
     }
 }

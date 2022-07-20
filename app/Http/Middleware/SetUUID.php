@@ -11,7 +11,7 @@ class SetUUID
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->hasCookie('uuid')) {
+        if (! $request->hasCookie('uuid')) {
             Cookie::queue(Cookie::forever('uuid', Str::uuid()));
         }
 

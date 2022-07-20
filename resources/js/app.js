@@ -23,9 +23,7 @@ createInertiaApp({
       .use(plugin)
       .use(envPlugin)
       .use(vueSwiper)
-      .use(inertiaSetting, {
-        ssr: false,
-      })
+      .use(inertiaSetting)
       .use(autoload, {
         list: [
           {

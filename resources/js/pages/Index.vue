@@ -11,6 +11,7 @@
       <div class="mt-3 flex h-full flex-col items-center justify-center">
         <div class="text-3xl">準備中...</div>
         <div>{{ story.content.body }}</div>
+        <pre>{{ products }}</pre>
       </div>
     </div>
   </div>
@@ -19,6 +20,10 @@
 <script setup>
 defineProps({
   story: {
+    type: Object,
+    default: Object,
+  },
+  products: {
     type: Object,
     default: Object,
   },
