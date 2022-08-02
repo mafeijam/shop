@@ -33,24 +33,33 @@ class SetLang
         $lang = $route->parameter('lang');
         $slug = $route->parameter('slug');
 
-        if (! in_array($lang, $this->allowLangs)) {
-            $lang = 'zh-hk';
-        }
-
         if (Route::has($slug)) {
             $parameterNames = Route::getRoutes()->getByName($slug)->parameterNames();
 
-            $routeParam = collect([
-                'lang' => $lang === 'zh-hk' ? null : $lang,
-                'slug' => $slug,
-            ])->only($parameterNames);
+            if ($lang === 'zh-hk') {
+                $lang = null;
+            }
 
-            return redirect()->route($slug, $routeParam->toArray());
+            $routeParam = collect([
+                'lang' => $lang,
+                'slug' => $slug,
+            ])
+            ->only($parameterNames)
+            ->toArray();
+
+            return redirect()->route($slug, $routeParam);
         }
 
         if (! in_array($lang, $this->allowLangs)) {
             $route->setParameter('lang', 'zh-hk');
             $route->setParameter('slug', "$lang/$slug");
+        }
+
+        if ($lang === 'zh-hk') {
+            return redirect()->route('storyblok', [
+                'lang' => null,
+                'slug' => $slug,
+            ]);
         }
 
         return $next($request);
@@ -63,6 +72,10 @@ class SetLang
         if (Route::has($slug)) {
             $action = Route::getRoutes()->getByName($slug)->getActionName();
             $route->uses($action);
+        }
+
+        if ($slug === 'zh-hk') {
+            return redirect()->route('home');
         }
 
         $route->setParameter('lang', 'zh-hk');
