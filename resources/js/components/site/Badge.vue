@@ -1,6 +1,6 @@
 <template>
   <div class="absolute -top-2 -left-2 rotate-[-8deg] rounded-lg py-1 px-3 text-sm" :class="color">
-    <slot></slot>
+    <slot />
   </div>
 </template>
 

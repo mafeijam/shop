@@ -4,7 +4,7 @@
     @mouseover="show = true"
     @mouseleave="show = false"
   >
-    <SiteBadge v-if="burger <= 2" color="red">新野</SiteBadge>
+    <SiteBadge v-if="burger <= 2" color="red"> 新野 </SiteBadge>
     <SiteBadge v-if="[3, 5].includes(burger)" color="blue">限定</SiteBadge>
 
     <div class="flex h-32 items-center justify-center lg:w-1/3 xl:h-full">
@@ -12,7 +12,7 @@
         :src="`https://jamwong.me/static/foods/burger-${burger}.png`"
         alt="burger"
         class="h-full w-full object-contain"
-      />
+      >
     </div>
 
     <div class="lg:h-ful flex py-8 lg:w-2/3 lg:py-0 lg:pl-6">
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-    <Transition name="product" v-if="isDesktop">
+    <Transition v-if="isDesktop" name="product">
       <div
         v-show="show"
         class="absolute bottom-0 right-0 flex w-full select-none items-center justify-end space-x-6 bg-gradient-to-b from-white/20 via-white/40 to-stone-200/60 p-4"
@@ -42,7 +42,7 @@
       </div>
     </Transition>
 
-    <div class="flex justify-end gap-6 lg:w-full lg:pt-6" v-else>
+    <div v-else class="flex justify-end gap-6 lg:w-full lg:pt-6">
       <button class="text-2xl text-stone-300 transition hover:text-rose-500 active:text-rose-600">
         <i-ri-heart-add-fill />
       </button>

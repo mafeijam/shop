@@ -1,11 +1,11 @@
 <template>
   <div>
     <component
-      :is="$getStoryComponent(blok.component)"
+      :is="$sb(blok.component)"
       v-for="blok in story.content.bloks"
       :key="blok._uid"
       :blok="blok"
-    ></component>
+    />
 
     <div class="container mx-auto h-full flex-grow px-6 py-8">
       <div class="mt-3 flex h-full flex-col items-center justify-center">

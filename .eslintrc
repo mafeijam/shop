@@ -1,12 +1,15 @@
 {
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": "latest"
+    },
     "extends": [
-        "@babel",
-        "eslint:recommended",
         "plugin:vue/vue3-recommended",
         "prettier",
         "./.eslintrc-auto-import.json"
     ],
     "rules": {
-        "vue/multi-word-component-names": "off"
+        "vue/multi-word-component-names": "off",
+        "vue/html-self-closing": ["error"]
     }
 }

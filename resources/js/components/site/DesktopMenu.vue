@@ -25,7 +25,7 @@
         買野食
       </InertiaLink>
 
-      <div class="h-3 border-l border-stone-200"></div>
+      <div class="h-3 border-l border-stone-200" />
 
       <div class="flex space-x-5">
         <InertiaLink :href="$page.props.lang_url">

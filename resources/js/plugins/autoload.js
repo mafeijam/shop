@@ -11,6 +11,6 @@ export default {
       })
     }
 
-    app.config.globalProperties.$getStoryComponent = name => `Story${upperFirst(name)}`
+    app.config.globalProperties.$sb = name => `Story${upperFirst(name)}`
   },
 }

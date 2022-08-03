@@ -1,8 +1,10 @@
 <template>
   <div v-editable="blok" class="px-6">
-    <p class="font-medium">{{ blok.body }}</p>
+    <p class="font-medium">
+      {{ blok.body }}
+    </p>
     <component
-      :is="$getStoryComponent(subblok.component)"
+      :is="$sb(subblok.component)"
       v-for="subblok in blok.bloks"
       :key="subblok._uid"
       :blok="subblok"

@@ -1,13 +1,13 @@
 <template>
   <Transition
+    :name="name"
+    mode="out-in"
     @before-enter="before"
     @before-leave="before"
     @after-enter="after"
     @after-leave="after"
-    :name="name"
-    mode="out-in"
   >
-    <slot></slot>
+    <slot />
   </Transition>
 </template>
 

@@ -3,7 +3,7 @@
 
   <main class="prose h-full max-w-none flex-grow bg-stone-50 md:prose-lg">
     <PageTransition>
-      <slot></slot>
+      <slot />
     </PageTransition>
   </main>
 

@@ -7,7 +7,7 @@
       src="https://jamwong.me/static/icons8-hamburger-100.png"
       class="h-10 object-contain"
       alt="logo"
-    />
+    >
     <div>好味漢堡包店</div>
   </InertiaLink>
 </template>
