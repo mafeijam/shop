@@ -5,11 +5,10 @@ import { Link, usePage } from '@inertiajs/inertia-vue3'
 const page = usePage()
 
 const getUrlWithLang = path => {
-  if (page.props.value.current_lang === null) {
-    return `${page.props.value.domain}/${path}`.replace(/\/+$/, '')
-  }
-
-  return `${page.props.value.domain}/${page.props.value.current_lang}/${path}`.replace(/\/+$/, '')
+  return [page.props.value.domain, page.props.value.current_lang, path]
+    .filter(v => !!v)
+    .join('/')
+    .replace(/\/+$/, '')
 }
 
 const isLinkActive = path => {
@@ -17,11 +16,9 @@ const isLinkActive = path => {
     path = path.slice(0, -1)
   }
 
-  if (page.props.value.current_lang === null) {
-    return `/${path}` === page.url.value
-  }
+  const link = [page.props.value.current_lang, path].filter(v => !!v).join('/')
 
-  return `/${page.props.value.current_lang}/${path}`.replace(/\/$/, '') === page.url.value
+  return `/${link}` === page.url.value
 }
 
 if (typeof window !== 'undefined') {

@@ -36,12 +36,8 @@ class SetLang
         if (Route::has($slug)) {
             $parameterNames = Route::getRoutes()->getByName($slug)->parameterNames();
 
-            if ($lang === 'zh-hk') {
-                $lang = null;
-            }
-
             $routeParam = collect([
-                'lang' => $lang,
+                'lang' => $lang === 'zh-hk' ? null : $lang,
                 'slug' => $slug,
             ])
             ->only($parameterNames)

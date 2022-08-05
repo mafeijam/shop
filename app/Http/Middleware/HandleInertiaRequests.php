@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -42,10 +43,13 @@ class HandleInertiaRequests extends Middleware
         $url = $request->getBaseUrl().$request->getRequestUri();
         $last = $request->session()->pull('page_last_url', $url);
         $request->session()->put('page_last_url', $url);
+        $route = $request->route();
 
         return array_merge(parent::share($request), [
             'lang_url' => $this->getLangUrl($request),
             'last_url' => $last,
+            'route_name' => $route->getName(),
+            'route_params' => $route->parameters(),
             'change_lang' => $this->changedLang($url, $last),
             'current_lang' => $this->getCurrentLang($request),
             'domain' => $request->getSchemeAndHttpHost(),
@@ -69,51 +73,36 @@ class HandleInertiaRequests extends Middleware
     protected function getCurrentLang(Request $request)
     {
         $route = $request->route();
+        $lang = $route->parameter('lang');
 
-        if ($route->named('eat', 'home')) {
-            return $route->parameter('lang');
-        }
-
-        if ($route->hasParameter('slug')) {
-            return $route->parameter('lang');
-        }
-
-        return null;
+        return $lang === 'zh-hk' || ! in_array($lang, ['zh-hk', 'en-hk'])
+            ? null
+            : $lang;
     }
 
     protected function getLangUrl(Request $request)
     {
         $route = $request->route();
 
-        if ($route->named('home')) {
-            return route('home', [
-                'lang' => $route->hasParameter('lang') ? null : 'en-hk',
-            ]);
+        $lang = $route->parameter('lang');
+        $slug = $route->parameter('slug');
+
+        if ($lang === null || ! in_array($lang, ['zh-hk', 'en-hk'])) {
+            $slug = "$lang/$slug";
+            $lang = 'en-hk';
+        } elseif ($lang === 'en-hk') {
+            $lang = null;
         }
 
-        if ($route->named('eat')) {
-            return route($route->getName(), [
-                'lang' => null,
-            ]);
-        }
+        $parameterNames = Route::getRoutes()->getByName($route->getName())->parameterNames();
 
-        if ($route->named('storyblok')) {
-            $lang = $route->parameter('lang');
-            $slug = $route->parameter('slug');
+        $routeParam = collect([
+            'lang' => $lang,
+            'slug' => $slug,
+        ])
+        ->only($parameterNames)
+        ->toArray();
 
-            if (! $route->hasParameter('slug')) {
-                $slug = $lang;
-                $lang = 'en-hk';
-            } else {
-                $lang = null;
-            }
-
-            return route('storyblok', [
-                'lang' => $lang,
-                'slug' => $slug,
-            ]);
-        }
-
-        return null;
+        return route($route->getName(), $routeParam);
     }
 }

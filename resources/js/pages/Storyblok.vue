@@ -1,5 +1,5 @@
 <template>
-  <component :is="$sb(storyData.content.component)" :blok="storyData.content" />
+  <component :is="$sb(storyData.content.component)" :blok="storyData.content"/>
 </template>
 
 <script setup>
