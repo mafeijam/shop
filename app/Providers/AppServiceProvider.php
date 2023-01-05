@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(Storyblok::class, function ($app) {
             $client = new Storyblok(config('services.storyblok'));
             $client
-                ->editMode($app->environment(['local']))
+                //->editMode($app->environment(['local']))
                 ->setCache('filesytem', ['path' => storage_path('story-cache')]);
 
             return $client;

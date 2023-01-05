@@ -1,7 +1,7 @@
 <template>
   <SiteHeader />
 
-  <main class="prose h-full max-w-none flex-grow bg-stone-50 md:prose-lg">
+  <main class="prose h-full max-w-full flex-grow bg-stone-50 md:prose-lg">
     <PageTransition>
       <slot />
     </PageTransition>

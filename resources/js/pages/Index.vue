@@ -7,17 +7,25 @@
       :blok="blok"
     />
 
-    <div class="container mx-auto h-full flex-grow px-6 py-8">
+    <div class="container mx-auto h-full flex-grow px-3 py-8 md:px-6">
       <div class="mt-3 flex h-full flex-col items-center justify-center">
         <div class="text-3xl">準備中...</div>
+        <IxImg
+          src="/food.jpg"
+          sizes="100vw"
+          :imgix-params="{ ar: '16:9', fit: 'crop' }"
+          class="aspect-[16/9] w-full"
+        />
         <div>{{ story.content.body }}</div>
-        <pre>{{ products }}</pre>
+        <pre class="max-w-full">{{ products }}</pre>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { IxImg } from '@imgix/vue'
+
 defineProps({
   story: {
     type: Object,

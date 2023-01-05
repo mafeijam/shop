@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -50,24 +51,23 @@ class HandleInertiaRequests extends Middleware
             'last_url' => $last,
             'route_name' => $route->getName(),
             'route_params' => $route->parameters(),
-            'change_lang' => $this->changedLang($url, $last),
+            'changed_lang' => $this->changedLang($url, $last),
             'current_lang' => $this->getCurrentLang($request),
             'domain' => $request->getSchemeAndHttpHost(),
+            'is_public' => Str::of($request->getHost())->contains('jamwong.me'),
             'lazy' => $request->inertia() ? null : now(),
         ]);
     }
 
     protected function changedLang($url, $last)
     {
-        $changeLang = false;
-
         if ((str_starts_with($url, '/en-hk') && ! str_starts_with($last, '/en-hk')) ||
             (! str_starts_with($url, '/en-hk') && str_starts_with($last, '/en-hk'))
         ) {
-            $changeLang = true;
+            return true;
         }
 
-        return $changeLang;
+        return false;
     }
 
     protected function getCurrentLang(Request $request)
@@ -96,13 +96,13 @@ class HandleInertiaRequests extends Middleware
 
         $parameterNames = Route::getRoutes()->getByName($route->getName())->parameterNames();
 
-        $routeParam = collect([
+        $routeParams = collect([
             'lang' => $lang,
             'slug' => $slug,
         ])
         ->only($parameterNames)
         ->toArray();
 
-        return route($route->getName(), $routeParam);
+        return route($route->getName(), $routeParams);
     }
 }

@@ -1,6 +1,7 @@
 import { Inertia } from '@inertiajs/inertia'
 import { InertiaProgress } from '@inertiajs/progress'
 import { Link, usePage } from '@inertiajs/inertia-vue3'
+import { show as showMobileMenu } from '@/composable/useMobileMenu'
 
 const page = usePage()
 
@@ -31,6 +32,16 @@ if (typeof window !== 'undefined') {
 
   Inertia.on('before', event => {
     return event.detail.visit.url.pathname !== page.url.value
+  })
+
+  Inertia.on('navigate', event => {
+    showMobileMenu.value = false
+
+    if (event.detail.page.props.is_public) {
+      gtag('event', 'page_view', {
+        page_location: event.detail.page.url,
+      })
+    }
   })
 }
 

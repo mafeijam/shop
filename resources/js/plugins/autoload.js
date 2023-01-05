@@ -1,8 +1,19 @@
 import { upperFirst } from 'lodash'
 
+const list = [
+  {
+    components: import.meta.globEager('../components/storyblok/*.vue'),
+    prefix: 'Story',
+  },
+  {
+    components: import.meta.globEager('../components/site/*.vue'),
+    prefix: 'Site',
+  },
+]
+
 export default {
-  install(app, options) {
-    for (let l of options.list) {
+  install(app) {
+    for (let l of list) {
       Object.entries(l.components).forEach(([path, c]) => {
         const file = path.split('/').pop().replace('.vue', '')
         const comp = c.default

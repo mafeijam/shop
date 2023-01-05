@@ -29,12 +29,12 @@
 
       <div class="flex space-x-5">
         <InertiaLink :href="$page.props.lang_url">
-          <i-ri-translate-2 class="icons text-lg" />
+          <i-ri:translate-2 class="icons text-lg" />
         </InertiaLink>
 
-        <i-ri-user-3-line class="icons cursor-pointer text-lg" />
-        <i-ri-heart-3-line class="icons cursor-pointer text-lg" />
-        <i-ri-shopping-cart-line class="icons cursor-pointer text-lg" />
+        <i-ri:user-3-line class="icons cursor-pointer text-lg" />
+        <i-ri:heart-3-line class="icons cursor-pointer text-lg" />
+        <i-ri:shopping-cart-line class="icons cursor-pointer text-lg" />
       </div>
     </div>
   </div>

@@ -14,6 +14,10 @@ class StoryblokController extends Controller
             $storyblok->deleteCacheBySlug("$lang/$slug");
         }
 
+        if (method_exists($this, $slug)) {
+            return app()->call([$this, $slug]);
+        }
+
         try {
             $story = $storyblok->getStoryBySlug("$lang/$slug")->getBody();
 

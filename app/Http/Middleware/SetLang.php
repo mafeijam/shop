@@ -65,11 +65,6 @@ class SetLang
     {
         $slug = $route->parameter('lang');
 
-        if (Route::has($slug)) {
-            $action = Route::getRoutes()->getByName($slug)->getActionName();
-            $route->uses($action);
-        }
-
         if ($slug === 'zh-hk') {
             return redirect()->route('home');
         }

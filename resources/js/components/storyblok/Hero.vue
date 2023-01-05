@@ -3,7 +3,7 @@
     <VueSwiper v-bind="swiperSetting">
       <VueSwiperSlide v-for="item in blok.hero_items" :key="item._uid">
         <div class="flex-center h-[50vh] bg-slate-200 p-16">
-          {{ item }}
+          {{ JSON.stringify(item) }}
         </div>
       </VueSwiperSlide>
 

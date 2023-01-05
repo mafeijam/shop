@@ -1,11 +1,12 @@
 import { createApp } from 'vue'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers'
-import { StoryblokVue, apiPlugin } from '@storyblok/vue'
 import envPlugin from '@/plugins/env'
 import autoload from '@/plugins/autoload'
 import inertiaSetting from '@/plugins/inertia-setting'
 import vueSwiper from '@/plugins/vue-swiper'
+import imgix from '@/plugins/imgix'
+import storyblok from '@/plugins/storyblok'
 import layout from '@/layouts/default.vue'
 
 import '../css/app.css'
@@ -23,24 +24,10 @@ createInertiaApp({
       .use(plugin)
       .use(envPlugin)
       .use(vueSwiper)
+      .use(imgix)
       .use(inertiaSetting)
-      .use(autoload, {
-        list: [
-          {
-            components: import.meta.globEager('./components/storyblok/*.vue'),
-            prefix: 'Story',
-          },
-          {
-            components: import.meta.globEager('./components/site/*.vue'),
-            prefix: 'Site',
-          },
-        ],
-      })
-      .use(StoryblokVue, {
-        accessToken: import.meta.env.VITE_STORYBLOK,
-        bridge: import.meta.env.VITE_APP_ENV !== 'production',
-        use: [apiPlugin],
-      })
+      .use(autoload)
+      .use(storyblok)
       .mount(el)
   },
 })

@@ -17,7 +17,7 @@ import { usePage } from '@inertiajs/inertia-vue3'
 const page = usePage()
 
 const unchaged = computed(
-  () => page.props.value.last_url === page.url.value || page.props.value.change_lang
+  () => page.props.value.last_url === page.url.value || page.props.value.changed_lang
 )
 
 const name = computed(() => {
