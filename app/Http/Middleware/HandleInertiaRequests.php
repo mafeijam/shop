@@ -22,9 +22,6 @@ class HandleInertiaRequests extends Middleware
      * Determines the current asset version.
      *
      * @see https://inertiajs.com/asset-versioning
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
      */
     public function version(Request $request): ?string
     {
@@ -35,9 +32,6 @@ class HandleInertiaRequests extends Middleware
      * Defines the props that are shared by default.
      *
      * @see https://inertiajs.com/shared-data
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
      */
     public function share(Request $request): array
     {
@@ -83,6 +77,11 @@ class HandleInertiaRequests extends Middleware
     protected function getLangUrl(Request $request)
     {
         $route = $request->route();
+        $name = $route->getName();
+
+        if ($name === 'flush') {
+            return null;
+        }
 
         $lang = $route->parameter('lang');
         $slug = $route->parameter('slug');
@@ -94,7 +93,7 @@ class HandleInertiaRequests extends Middleware
             $lang = null;
         }
 
-        $parameterNames = Route::getRoutes()->getByName($route->getName())->parameterNames();
+        $parameterNames = Route::getRoutes()->getByName($name)->parameterNames();
 
         $routeParams = collect([
             'lang' => $lang,
@@ -103,6 +102,6 @@ class HandleInertiaRequests extends Middleware
         ->only($parameterNames)
         ->toArray();
 
-        return route($route->getName(), $routeParams);
+        return route($name, $routeParams);
     }
 }

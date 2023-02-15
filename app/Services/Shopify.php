@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Exception;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -12,21 +13,21 @@ class Shopify
 {
     public function getProducts(array $variables = [])
     {
-        $resp = Http::shopify('products', $variables);
+        return Cache::remember('shopify:product', now()->addDays(7), function () use ($variables) {
+            $resp = Http::shopify('products', $variables);
 
-        if ($resp->json('errors')) {
-            throw new Exception($resp->json('errors.0.message'));
-        }
+            if ($resp->json('errors')) {
+                throw new Exception($resp->json('errors.0.message'));
+            }
 
-        // return $resp->json();
+            return $resp->collect('data.products.edges')->flatten(1)
+                ->map(function ($p) {
+                    $variants = Arr::get($p, 'variants.edges');
+                    $p['variants'] = Arr::flatten($variants, 2);
 
-        return $resp->collect('data.products.edges')->flatten(1)
-            ->map(function ($p) {
-                $variants = Arr::get($p, 'variants.edges');
-                $p['variants'] = Arr::flatten($variants, 2);
-
-                return $p;
-            });
+                    return $p;
+                });
+        });
     }
 
     public function getCart(array $variables = [])

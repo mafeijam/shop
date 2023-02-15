@@ -46,16 +46,16 @@ class SetLang
             return redirect()->route($slug, $routeParam);
         }
 
-        if (! in_array($lang, $this->allowLangs)) {
-            $route->setParameter('lang', 'zh-hk');
-            $route->setParameter('slug', "$lang/$slug");
-        }
-
         if ($lang === 'zh-hk') {
             return redirect()->route('storyblok', [
                 'lang' => null,
                 'slug' => $slug,
             ]);
+        }
+
+        if (! in_array($lang, $this->allowLangs)) {
+            $route->setParameter('lang', 'zh-hk');
+            $route->setParameter('slug', "$lang/$slug");
         }
 
         return $next($request);

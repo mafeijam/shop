@@ -5,7 +5,7 @@ use App\Http\Controllers\StoryblokController;
 use App\Http\Middleware\SetLang;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/story-flush', [StoryblokController::class, 'flush']);
+Route::get('/story-flush', [StoryblokController::class, 'flush'])->name('flush');
 
 Route::get('/{lang?}', [HomeController::class, 'index'])
     ->name('home')
