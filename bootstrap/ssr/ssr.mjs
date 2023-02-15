@@ -3,14 +3,12 @@ import { ssrRenderAttrs, ssrRenderList, ssrRenderComponent, ssrRenderVNode, ssrI
 import VueImgix, { IxImg } from "@imgix/vue";
 import { useStoryblokBridge, StoryblokVue, apiPlugin } from "@storyblok/vue";
 import { renderToString } from "@vue/server-renderer";
-import { usePage, Link, createInertiaApp } from "@inertiajs/inertia-vue3";
-import createServer from "@inertiajs/server";
+import { usePage, router, Link, createInertiaApp } from "@inertiajs/vue3";
+import createServer from "@inertiajs/vue3/server";
 import { getWindow, getDocument } from "ssr-window";
 import { $, addClass, removeClass, hasClass, toggleClass, attr, removeAttr, transform, transition as transition$1, on, off, trigger, transitionEnd as transitionEnd$1, outerWidth, outerHeight, styles, offset, css, each, html, text, is, index, eq, append, prepend, next, nextAll, prev, prevAll, parent, parents, closest, find, children, filter, remove } from "dom7";
 import { useSwipe, SwipeDirection, onClickOutside, useBreakpoints, breakpointsTailwind } from "@vueuse/core";
 import { upperFirst } from "lodash";
-import { Inertia } from "@inertiajs/inertia";
-import { InertiaProgress } from "@inertiajs/progress";
 const _export_sfc = (sfc, props) => {
   const target = sfc.__vccOpts || sfc;
   for (const [key, val] of props) {
@@ -130,13 +128,6 @@ const __vite_glob_0_3$1 = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.d
   __proto__: null,
   default: _sfc_main$d
 }, Symbol.toStringTag, { value: "Module" }));
-async function resolvePageComponent(path, pages2) {
-  const page2 = pages2[path];
-  if (typeof page2 === "undefined") {
-    throw new Error(`Page not found: ${path}`);
-  }
-  return typeof page2 === "function" ? page2() : page2;
-}
 const envPlugin = {
   install(app2) {
     app2.config.globalProperties.$isLocal = {}.MIX_APP_ENV === "local";
@@ -4729,8 +4720,8 @@ function _sfc_ssrRender$2(_ctx, _push, _parent, _attrs) {
   _push(ssrRenderComponent(_component_SiteLogo, { class: "links" }, null, _parent));
   _push(`<div class="flex items-center space-x-10">`);
   _push(ssrRenderComponent(_component_InertiaLink, {
-    href: _ctx.$getUrlWithLang("/"),
-    class: ["links grid h-full content-center text-lg", { "link-active": _ctx.$isLinkActive("/") }]
+    href: _ctx.$getUrlWithLang("/", _ctx.$page),
+    class: ["links grid h-full content-center text-lg", { "link-active": _ctx.$isLinkActive("/", _ctx.$page) }]
   }, {
     default: withCtx((_, _push2, _parent2, _scopeId) => {
       if (_push2) {
@@ -4744,8 +4735,8 @@ function _sfc_ssrRender$2(_ctx, _push, _parent, _attrs) {
     _: 1
   }, _parent));
   _push(ssrRenderComponent(_component_InertiaLink, {
-    href: _ctx.$getUrlWithLang("about"),
-    class: ["links grid h-full content-center text-lg", { "link-active": _ctx.$isLinkActive("about") }]
+    href: _ctx.$getUrlWithLang("about", _ctx.$page),
+    class: ["links grid h-full content-center text-lg", { "link-active": _ctx.$isLinkActive("about", _ctx.$page) }]
   }, {
     default: withCtx((_, _push2, _parent2, _scopeId) => {
       if (_push2) {
@@ -4759,8 +4750,8 @@ function _sfc_ssrRender$2(_ctx, _push, _parent, _attrs) {
     _: 1
   }, _parent));
   _push(ssrRenderComponent(_component_InertiaLink, {
-    href: _ctx.$getUrlWithLang("eat"),
-    class: ["links grid h-full content-center text-lg", { "link-active": _ctx.$isLinkActive("eat") }]
+    href: _ctx.$getUrlWithLang("eat", _ctx.$page),
+    class: ["links grid h-full content-center text-lg", { "link-active": _ctx.$isLinkActive("eat", _ctx.$page) }]
   }, {
     default: withCtx((_, _push2, _parent2, _scopeId) => {
       if (_push2) {
@@ -4843,10 +4834,10 @@ const _sfc_main$4 = {
   __name: "Logo",
   __ssrInlineRender: true,
   setup(__props) {
-    const page2 = usePage();
+    const page = usePage();
     const home = computed(() => {
-      if (page2.props.value.current_lang) {
-        return `/${page2.props.value.current_lang}`;
+      if (page.props.current_lang) {
+        return `/${page.props.current_lang}`;
       }
       return "/";
     });
@@ -4971,7 +4962,7 @@ const _sfc_main$3 = {
           _push2(ssrRenderComponent(_component_i_ri58shopping_cart_line, { class: "icons cursor-pointer text-2xl" }, null, _parent));
           _push2(`</div><div class="flex flex-col divide-y divide-stone-200/80 px-6">`);
           _push2(ssrRenderComponent(_component_InertiaLink, {
-            href: _ctx.$getUrlWithLang("about"),
+            href: _ctx.$getUrlWithLang("about", _ctx.$page),
             class: "links py-4 text-2xl"
           }, {
             default: withCtx((_, _push3, _parent2, _scopeId) => {
@@ -4986,7 +4977,7 @@ const _sfc_main$3 = {
             _: 1
           }, _parent));
           _push2(ssrRenderComponent(_component_InertiaLink, {
-            href: _ctx.$getUrlWithLang("eat"),
+            href: _ctx.$getUrlWithLang("eat", _ctx.$page),
             class: "links py-4 text-2xl"
           }, {
             default: withCtx((_, _push3, _parent2, _scopeId) => {
@@ -5159,28 +5150,22 @@ const autoload = {
     app2.config.globalProperties.$sb = (name) => `Story${upperFirst(name)}`;
   }
 };
-const page = usePage();
-const getUrlWithLang = (path) => {
-  return [page.props.value.domain, page.props.value.current_lang, path].filter((v) => !!v).join("/").replace(/\/+$/, "");
+const getUrlWithLang = (path, page) => {
+  return [page.props.domain, page.props.current_lang, path].filter((v) => !!v).join("/").replace(/\/+$/, "");
 };
-const isLinkActive = (path) => {
+const isLinkActive = (path, page) => {
   if (path.endsWith("/")) {
     path = path.slice(0, -1);
   }
-  const link = [page.props.value.current_lang, path].filter((v) => !!v).join("/");
-  return `/${link}` === page.url.value;
+  const link = [page.props.current_lang, path].filter((v) => !!v).join("/");
+  return `/${link}` === page.url;
 };
 if (typeof window !== "undefined") {
-  InertiaProgress.init({
-    delay: 350,
-    color: "#60a5fa",
-    includeCSS: true,
-    showSpinner: false
+  router.on("before", (event) => {
+    const page = usePage();
+    return event.detail.visit.url.pathname !== page.url;
   });
-  Inertia.on("before", (event) => {
-    return event.detail.visit.url.pathname !== page.url.value;
-  });
-  Inertia.on("navigate", (event) => {
+  router.on("navigate", (event) => {
     show.value = false;
     if (event.detail.page.props.is_public) {
       gtag("event", "page_view", {
@@ -6461,10 +6446,8 @@ const _sfc_main$1 = {
   __name: "PageTransition",
   __ssrInlineRender: true,
   setup(__props) {
-    const page2 = usePage();
-    const unchaged = computed(
-      () => page2.props.value.last_url === page2.url.value || page2.props.value.changed_lang
-    );
+    const page = usePage();
+    const unchaged = computed(() => page.props.last_url === page.url || page.props.changed_lang);
     computed(() => {
       if (unchaged.value) {
         return "none";
@@ -6517,18 +6500,19 @@ _sfc_main.setup = (props, ctx) => {
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
 const app = "";
-const pages = /* @__PURE__ */ Object.assign({ "./pages/Eat.vue": __vite_glob_0_0$1, "./pages/Index.vue": __vite_glob_0_1$1, "./pages/NotFound.vue": __vite_glob_0_2$1, "./pages/Storyblok.vue": __vite_glob_0_3$1 });
 createServer(
-  (page2) => createInertiaApp({
-    page: page2,
+  (page) => createInertiaApp({
+    page,
     render: renderToString,
-    resolve: async (name) => {
-      const comp = (await resolvePageComponent(`./pages/${name}.vue`, pages)).default;
-      comp.layout ?? (comp.layout = _sfc_main);
-      return comp;
+    resolve: (name) => {
+      var _a;
+      const pages = /* @__PURE__ */ Object.assign({ "./pages/Eat.vue": __vite_glob_0_0$1, "./pages/Index.vue": __vite_glob_0_1$1, "./pages/NotFound.vue": __vite_glob_0_2$1, "./pages/Storyblok.vue": __vite_glob_0_3$1 });
+      let page2 = pages[`./pages/${name}.vue`];
+      (_a = page2.default).layout ?? (_a.layout = _sfc_main);
+      return page2;
     },
-    setup({ app: app2, props, plugin }) {
-      return createSSRApp({ render: () => h(app2, props) }).use(plugin).use(envPlugin).use(vueSwiper).use(imgix).use(inertiaSetting).use(autoload).use(storyblok);
+    setup({ App, props, plugin }) {
+      return createSSRApp({ render: () => h(App, props) }).use(plugin).use(envPlugin).use(vueSwiper).use(imgix).use(inertiaSetting).use(autoload).use(storyblok);
     }
   })
 );

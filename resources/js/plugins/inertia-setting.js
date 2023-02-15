@@ -1,40 +1,30 @@
-import { Inertia } from '@inertiajs/inertia'
-import { InertiaProgress } from '@inertiajs/progress'
-import { Link, usePage } from '@inertiajs/inertia-vue3'
+import { Link, usePage, router } from '@inertiajs/vue3'
 import { show as showMobileMenu } from '@/composable/useMobileMenu'
 
-const page = usePage()
-
-const getUrlWithLang = path => {
-  return [page.props.value.domain, page.props.value.current_lang, path]
+const getUrlWithLang = (path, page) => {
+  return [page.props.domain, page.props.current_lang, path]
     .filter(v => !!v)
     .join('/')
     .replace(/\/+$/, '')
 }
 
-const isLinkActive = path => {
+const isLinkActive = (path, page) => {
   if (path.endsWith('/')) {
     path = path.slice(0, -1)
   }
 
-  const link = [page.props.value.current_lang, path].filter(v => !!v).join('/')
+  const link = [page.props.current_lang, path].filter(v => !!v).join('/')
 
-  return `/${link}` === page.url.value
+  return `/${link}` === page.url
 }
 
 if (typeof window !== 'undefined') {
-  InertiaProgress.init({
-    delay: 350,
-    color: '#60a5fa',
-    includeCSS: true,
-    showSpinner: false,
+  router.on('before', event => {
+    const page = usePage()
+    return event.detail.visit.url.pathname !== page.url
   })
 
-  Inertia.on('before', event => {
-    return event.detail.visit.url.pathname !== page.url.value
-  })
-
-  Inertia.on('navigate', event => {
+  router.on('navigate', event => {
     showMobileMenu.value = false
 
     if (event.detail.page.props.is_public) {

@@ -13,13 +13,13 @@
 </template>
 
 <script setup>
-import { usePage } from '@inertiajs/inertia-vue3'
+import { usePage } from '@inertiajs/vue3'
 
 const page = usePage()
 
 const home = computed(() => {
-  if (page.props.value.current_lang) {
-    return `/${page.props.value.current_lang}`
+  if (page.props.current_lang) {
+    return `/${page.props.current_lang}`
   }
 
   return '/'

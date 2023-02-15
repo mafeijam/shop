@@ -12,13 +12,11 @@
 </template>
 
 <script setup>
-import { usePage } from '@inertiajs/inertia-vue3'
+import { usePage } from '@inertiajs/vue3'
 
 const page = usePage()
 
-const unchaged = computed(
-  () => page.props.value.last_url === page.url.value || page.props.value.changed_lang
-)
+const unchaged = computed(() => page.props.last_url === page.url || page.props.changed_lang)
 
 const name = computed(() => {
   if (unchaged.value) {

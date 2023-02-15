@@ -27,10 +27,10 @@
         </div>
 
         <div class="flex flex-col divide-y divide-stone-200/80 px-6">
-          <InertiaLink :href="$getUrlWithLang('about')" class="links py-4 text-2xl">
+          <InertiaLink :href="$getUrlWithLang('about', $page)" class="links py-4 text-2xl">
             關於
           </InertiaLink>
-          <InertiaLink :href="$getUrlWithLang('eat')" class="links py-4 text-2xl">
+          <InertiaLink :href="$getUrlWithLang('eat', $page)" class="links py-4 text-2xl">
             買野食
           </InertiaLink>
         </div>

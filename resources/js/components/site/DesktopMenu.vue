@@ -4,23 +4,23 @@
 
     <div class="flex items-center space-x-10">
       <InertiaLink
-        :href="$getUrlWithLang('/')"
+        :href="$getUrlWithLang('/', $page)"
         class="links grid h-full content-center text-lg"
-        :class="{ 'link-active': $isLinkActive('/') }"
+        :class="{ 'link-active': $isLinkActive('/', $page) }"
       >
         首頁
       </InertiaLink>
       <InertiaLink
-        :href="$getUrlWithLang('about')"
+        :href="$getUrlWithLang('about', $page)"
         class="links grid h-full content-center text-lg"
-        :class="{ 'link-active': $isLinkActive('about') }"
+        :class="{ 'link-active': $isLinkActive('about', $page) }"
       >
         關於
       </InertiaLink>
       <InertiaLink
-        :href="$getUrlWithLang('eat')"
+        :href="$getUrlWithLang('eat', $page)"
         class="links grid h-full content-center text-lg"
-        :class="{ 'link-active': $isLinkActive('eat') }"
+        :class="{ 'link-active': $isLinkActive('eat', $page) }"
       >
         買野食
       </InertiaLink>
