@@ -3,15 +3,15 @@
     <VueSwiper v-bind="swiperSetting">
       <VueSwiperSlide v-for="item in blok.hero_items" :key="item._uid">
         <div class="flex-center h-[50vh] bg-slate-200 p-16">
-          {{ JSON.stringify(item) }}
+          {{ item }}
         </div>
       </VueSwiperSlide>
 
-      <template #wrapper-end>
-        <div class="swiper-btn-prev left-2">
+      <template #container-end>
+        <div class="swiper-btn-prev left-3">
           <i-ri-arrow-drop-left-line />
         </div>
-        <div class="swiper-btn-next right-2">
+        <div class="swiper-btn-next right-3">
           <i-ri-arrow-drop-right-line />
         </div>
       </template>

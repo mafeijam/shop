@@ -100,7 +100,7 @@
 
   .swiper-btn-next,
   .swiper-btn-prev {
-    @apply absolute top-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-white/50 text-2xl text-stone-500 transition hover:bg-white/70;
+    @apply absolute top-1/2 z-10 -translate-y-1/2 cursor-pointer rounded-full bg-white/50 text-2xl text-stone-500 transition  hover:bg-white/70;
   }
 }
 

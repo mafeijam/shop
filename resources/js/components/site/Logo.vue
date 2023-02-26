@@ -1,6 +1,6 @@
 <template>
   <InertiaLink
-    :href="home"
+    :href="getHome($page)"
     class="flex items-center space-x-3 justify-self-center text-lg transition"
   >
     <img
@@ -13,15 +13,11 @@
 </template>
 
 <script setup>
-import { usePage } from '@inertiajs/vue3'
-
-const page = usePage()
-
-const home = computed(() => {
+function getHome(page) {
   if (page.props.current_lang) {
     return `/${page.props.current_lang}`
   }
 
   return '/'
-})
+}
 </script>

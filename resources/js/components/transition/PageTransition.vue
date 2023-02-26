@@ -1,6 +1,6 @@
 <template>
   <Transition
-    :name="name"
+    name="page"
     mode="out-in"
     @before-enter="before"
     @before-leave="before"
@@ -12,33 +12,11 @@
 </template>
 
 <script setup>
-import { usePage } from '@inertiajs/vue3'
-
-const page = usePage()
-
-const unchaged = computed(() => page.props.last_url === page.url || page.props.changed_lang)
-
-const name = computed(() => {
-  if (unchaged.value) {
-    return 'none'
-  }
-
-  return 'page'
-})
-
 const before = () => {
-  if (unchaged.value) {
-    return
-  }
-
   document.body.classList.add('overflow-hidden')
 }
 
 const after = () => {
-  if (unchaged.value) {
-    return
-  }
-
   document.body.classList.remove('overflow-hidden')
 }
 </script>
