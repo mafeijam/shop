@@ -15,6 +15,7 @@
           sizes="100vw"
           :imgix-params="{ ar: '16:9', fit: 'crop' }"
           class="aspect-[16/9] w-full"
+          alt="img"
         />
         <div>{{ story.content.body }}</div>
         <pre class="max-w-full">{{ products }}</pre>
