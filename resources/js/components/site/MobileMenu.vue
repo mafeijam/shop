@@ -66,14 +66,14 @@
 
 <script setup>
 import { show } from '@/composable/useMobileMenu'
-import { onClickOutside, useSwipe, SwipeDirection } from '@vueuse/core'
+import { onClickOutside, useSwipe } from '@vueuse/core'
 
 const menu = ref(null)
 
 useSwipe(menu, {
   threshold: 100,
   onSwipeEnd(e, dir) {
-    if (dir === SwipeDirection.LEFT) {
+    if (dir === 'left') {
       show.value = false
     }
   },

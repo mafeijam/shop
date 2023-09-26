@@ -2,11 +2,11 @@ import upperFirst from 'lodash/upperFirst'
 
 const list = [
   {
-    components: import.meta.globEager('../components/storyblok/*.vue'),
+    components: import.meta.glob('../components/storyblok/*.vue', { eager: true }),
     prefix: 'Story',
   },
   {
-    components: import.meta.globEager('../components/site/*.vue'),
+    components: import.meta.glob('../components/site/*.vue', { eager: true }),
     prefix: 'Site',
   },
 ]

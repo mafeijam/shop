@@ -25,8 +25,6 @@
 </template>
 
 <script setup>
-import { IxImg } from '@imgix/vue'
-
 defineProps({
   story: {
     type: Object,

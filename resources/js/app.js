@@ -1,5 +1,5 @@
 import { createApp, h } from 'vue'
-import { createInertiaApp, usePage } from '@inertiajs/vue3'
+import { createInertiaApp } from '@inertiajs/vue3'
 import envPlugin from '@/plugins/env'
 import autoload from '@/plugins/autoload'
 import inertiaSetting from '@/plugins/inertia-setting'

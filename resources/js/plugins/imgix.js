@@ -1,4 +1,4 @@
-import VueImgix from '@imgix/vue'
+import VueImgix, { IxImg } from '@imgix/vue'
 
 export default {
   install(app) {
@@ -9,5 +9,7 @@ export default {
       },
       includeLibraryParam: false,
     })
+
+    app.component('IxImg', IxImg)
   },
 }
