@@ -20,7 +20,7 @@
 </template>
 
 <script setup>
-import { Pagination, Navigation, EffectFade, Autoplay } from 'swiper'
+import { Pagination, Navigation, EffectFade, Autoplay } from 'swiper/modules'
 
 defineProps({
   blok: {

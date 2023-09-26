@@ -12,7 +12,7 @@
         :src="`https://jamwong.me/static/foods/burger-${burger}.png`"
         alt="burger"
         class="h-full w-full object-contain"
-      >
+      />
     </div>
 
     <div class="lg:h-ful flex py-8 lg:w-2/3 lg:py-0 lg:pl-6">

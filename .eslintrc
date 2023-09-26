@@ -5,7 +5,7 @@
     },
     "extends": [
         "plugin:vue/vue3-recommended",
-        "prettier",
+        "plugin:prettier/recommended",
         "./.eslintrc-auto-import.json"
     ],
     "rules": {
