@@ -40,6 +40,7 @@ export default defineConfig({
       eslintrc: {
         enabled: true,
       },
+      dts: true,
     }),
 
     Icons({
